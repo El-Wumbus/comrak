@@ -149,6 +149,7 @@ pub struct Parser<'a, 'o, 'c> {
 
 #[derive(Default, Debug, Clone)]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize, serde(default)))]
 /// Umbrella options struct.
 pub struct Options {
     /// Enable CommonMark extensions.
@@ -165,6 +166,7 @@ pub struct Options {
 #[derive(Default, Debug, Clone, Builder)]
 #[builder(default)]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize, serde(default)))]
 /// Options to select extensions.
 pub struct ExtensionOptions {
     /// Enables the
@@ -429,6 +431,7 @@ pub struct ExtensionOptions {
 #[derive(Default, Debug, Clone, Builder)]
 #[builder(default)]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize, serde(default)))]
 /// Options for parser functions.
 pub struct ParseOptions {
     /// Punctuation (quotes, full-stops and hyphens) are converted into 'smart' punctuation.
@@ -483,6 +486,7 @@ pub struct ParseOptions {
 #[derive(Default, Debug, Clone, Copy, Builder)]
 #[builder(default)]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize, serde(default)))]
 /// Options for formatter functions.
 pub struct RenderOptions {
     /// [Soft line breaks](http://spec.commonmark.org/0.27/#soft-line-breaks) in the input
@@ -2417,6 +2421,7 @@ pub enum AutolinkType {
 
 #[derive(Debug, Clone, Copy, Default)]
 #[cfg_attr(feature = "arbitrary", derive(arbitrary::Arbitrary))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 /// Options for bulleted list redering in markdown. See `link_style` in [RenderOptions] for more details.
 pub enum ListStyleType {
     /// The `-` character

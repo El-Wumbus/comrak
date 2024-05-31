@@ -425,6 +425,36 @@ pub struct ExtensionOptions {
     ///            "<p>Happy Friday! 😄</p>\n");
     /// ```
     pub shortcodes: bool,
+
+    /// Enables wikilinks using title after pipe syntax
+    ///
+    /// ```` md
+    /// [[url|link label]]
+    /// ````
+    ///
+    /// ```
+    /// # use comrak::{markdown_to_html, Options};
+    /// let mut options = Options::default();
+    /// options.extension.wikilinks_title_after_pipe = true;
+    /// assert_eq!(markdown_to_html("[[url|link label]]", &options),
+    ///            "<p><a href=\"url\" data-wikilink=\"true\">link label</a></p>\n");
+    /// ```
+    pub wikilinks_title_after_pipe: bool,
+
+    /// Enables wikilinks using title before pipe syntax
+    ///
+    /// ```` md
+    /// [[link label|url]]
+    /// ````
+    ///
+    /// ```
+    /// # use comrak::{markdown_to_html, Options};
+    /// let mut options = Options::default();
+    /// options.extension.wikilinks_title_before_pipe = true;
+    /// assert_eq!(markdown_to_html("[[link label|url]]", &options),
+    ///            "<p><a href=\"url\" data-wikilink=\"true\">link label</a></p>\n");
+    /// ```
+    pub wikilinks_title_before_pipe: bool,
 }
 
 #[non_exhaustive]
@@ -2104,7 +2134,7 @@ impl<'a, 'o, 'c> Parser<'a, 'o, 'c> {
                                 }
                             }
                         }
-                        NodeValue::Link(..) | NodeValue::Image(..) => {
+                        NodeValue::Link(..) | NodeValue::Image(..) | NodeValue::WikiLink(..) => {
                             this_bracket = true;
                             break;
                         }
